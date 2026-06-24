@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shake Heaven — Rajkot's Sweetest Place</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --pink:#FF4F9A;
+  --yellow:#FFD600;
+  --purple:#A855F7;
+  --teal:#00C9A7;
+  --orange:#FF6B2B;
+  --cream:#FFF5F0;
+  --dark:#1A0A2E;
+  --card1:#FFE0EF;
+  --card2:#FFF0C2;
+  --card3:#E0F4FF;
+  --card4:#E8FFE0;
+}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Nunito',sans-serif;
+  background:var(--cream);
+  color:var(--dark);
+  overflow-x:hidden;
+  cursor:none;
+}
+
+/* CUSTOM CURSOR */
+#cursor{
+  width:20px;height:20px;
+  background:var(--pink);
+  border-radius:50%;
+  position:fixed;top:0;left:0;
+  pointer-events:none;
+  z-index:9999;
+  transition:transform 0.15s ease;
+  mix-blend-mode:multiply;
+}
+#cursor-trail{
+  width:40px;height:40px;
+  border:2px solid var(--pink);
+  border-radius:50%;
+  position:fixed;top:0;left:0;
+  pointer-events:none;
+  z-index:9998;
+  transition:all 0.3s ease;
+  opacity:0.5;
+}
+
+/* NAV */
+nav{
+  position:fixed;top:0;left:0;right:0;
+  z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1rem 2.5rem;
+  backdrop-filter:blur(12px);
+  background:rgba(255,245,240,0.85);
+  border-bottom:1px solid rgba(255,79,154,0.12);
+}
+.nav-logo{
+  font-family:'Fredoka One',cursive;
+  font-size:1.6rem;
+  color:var(--pink);
+  display:flex;align-items:center;gap:0.5rem;
+}
+.nav-logo span{color:var(--purple)}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{
+  text-decoration:none;color:var(--dark);
+  font-weight:700;font-size:0.9rem;letter-spacing:0.3px;
+  transition:color 0.2s;
+}
+.nav-links a:hover{color:var(--pink)}
+.nav-cta{
+  background:var(--pink);color:#fff;
+  border:none;padding:0.55rem 1.4rem;
+  border-radius:50px;font-family:'Nunito',sans-serif;
+  font-size:0.9rem;font-weight:800;cursor:none;
+  transition:transform 0.2s,box-shadow 0.2s;
+  box-shadow:0 4px 15px rgba(255,79,154,0.35);
+}
+.nav-cta:hover{transform:translateY(-2px) scale(1.05);box-shadow:0 8px 25px rgba(255,79,154,0.45)}
+
+/* HERO */
+.hero{
+  min-height:100vh;
+  display:flex;align-items:center;
+  padding:6rem 2.5rem 3rem;
+  position:relative;
+  overflow:hidden;
+  background:linear-gradient(135deg,#FFF5F0 0%,#FFF0FA 50%,#F5F0FF 100%);
+}
+.hero-bg-blob{
+  position:absolute;
+  border-radius:50%;
+  filter:blur(60px);
+  opacity:0.35;
+  animation:blobFloat 8s ease-in-out infinite;
+}
+.blob1{width:400px;height:400px;background:var(--pink);top:-100px;right:-100px;animation-delay:0s}
+.blob2{width:300px;height:300px;background:var(--purple);bottom:-80px;left:-80px;animation-delay:2s}
+.blob3{width:200px;height:200px;background:var(--yellow);top:40%;right:30%;animation-delay:4s}
+@keyframes blobFloat{
+  0%,100%{transform:translate(0,0) scale(1)}
+  33%{transform:translate(20px,-20px) scale(1.05)}
+  66%{transform:translate(-15px,10px) scale(0.95)}
+}
+
+.hero-content{position:relative;z-index:2;max-width:600px}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:0.4rem;
+  background:#fff;border:1.5px solid rgba(255,79,154,0.25);
+  border-radius:50px;padding:0.35rem 1rem;
+  font-size:0.82rem;font-weight:700;color:var(--pink);
+  margin-bottom:1.5rem;
+  animation:badgePop 0.8s cubic-bezier(0.34,1.56,0.64,1) 0.2s both;
+}
+@keyframes badgePop{from{opacity:0;transform:scale(0.5) translateY(20px)}to{opacity:1;transform:scale(1) translateY(0)}}
+
+.hero-badge .dot{width:8px;height:8px;background:var(--pink);border-radius:50%;animation:pulse 1.5s infinite}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.4);opacity:0.6}}
+
+.hero h1{
+  font-family:'Fredoka One',cursive;
+  font-size:clamp(3rem,7vw,5.5rem);
+  line-height:1.05;
+  color:var(--dark);
+  animation:heroTextIn 1s cubic-bezier(0.34,1.56,0.64,1) 0.4s both;
+}
+@keyframes heroTextIn{from{opacity:0;transform:translateY(60px)}to{opacity:1;transform:translateY(0)}}
+
+.hero h1 .highlight{
+  color:var(--pink);
+  display:inline-block;
+  position:relative;
+}
+.hero h1 .highlight::after{
+  content:'';
+  position:absolute;bottom:-4px;left:0;right:0;
+  height:4px;background:var(--yellow);border-radius:2px;
+  animation:underlineGrow 1s ease 1.2s both;
+}
+@keyframes underlineGrow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+
+.hero h1 .wave{display:inline-block;animation:wave 2s ease-in-out infinite;animation-delay:1.5s}
+@keyframes wave{0%,100%{transform:rotate(0deg)}25%{transform:rotate(-10deg)}75%{transform:rotate(10deg)}}
+
+.hero-sub{
+  font-size:1.15rem;color:#6B5B73;font-weight:600;
+  margin:1.2rem 0 2rem;line-height:1.6;
+  animation:heroTextIn 1s cubic-bezier(0.34,1.56,0.64,1) 0.6s both;
+}
+.hero-actions{
+  display:flex;gap:1rem;flex-wrap:wrap;
+  animation:heroTextIn 1s cubic-bezier(0.34,1.56,0.64,1) 0.8s both;
+}
+.btn-primary{
+  background:var(--pink);color:#fff;
+  border:none;padding:0.8rem 2rem;
+  border-radius:50px;font-family:'Nunito',sans-serif;
+  font-size:1rem;font-weight:800;cursor:none;
+  transition:all 0.25s;
+  box-shadow:0 6px 20px rgba(255,79,154,0.4);
+  display:flex;align-items:center;gap:0.5rem;
+}
+.btn-primary:hover{transform:translateY(-3px) scale(1.05);box-shadow:0 12px 30px rgba(255,79,154,0.5)}
+.btn-secondary{
+  background:transparent;color:var(--dark);
+  border:2px solid var(--dark);padding:0.8rem 2rem;
+  border-radius:50px;font-family:'Nunito',sans-serif;
+  font-size:1rem;font-weight:800;cursor:none;
+  transition:all 0.25s;
+}
+.btn-secondary:hover{background:var(--dark);color:#fff;transform:translateY(-3px)}
+
+/* HERO ILLUSTRATION */
+.hero-illustration{
+  position:absolute;right:5%;top:50%;
+  transform:translateY(-50%);
+  z-index:2;
+  animation:heroIllIn 1s cubic-bezier(0.34,1.56,0.64,1) 0.5s both;
+}
+@keyframes heroIllIn{from{opacity:0;transform:translateY(-50%) scale(0.5) rotate(-10deg)}to{opacity:1;transform:translateY(-50%) scale(1) rotate(0deg)}}
+
+.big-cup{
+  width:280px;
+  animation:floatCup 5s ease-in-out infinite;
+  filter:drop-shadow(0 20px 40px rgba(255,79,154,0.3));
+}
+@keyframes floatCup{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-20px) rotate(2deg)}}
+
+/* FLOATING ITEMS */
+.float-item{
+  position:absolute;
+  font-size:2.5rem;
+  animation:floatRandom 7s ease-in-out infinite;
+  pointer-events:none;
+  z-index:1;
+}
+.fi1{top:15%;right:38%;animation-delay:0s;font-size:2rem}
+.fi2{top:75%;right:42%;animation-delay:1.5s;font-size:1.8rem}
+.fi3{top:25%;right:18%;animation-delay:3s;font-size:1.5rem}
+.fi4{top:65%;right:8%;animation-delay:0.8s;font-size:2.2rem}
+.fi5{top:10%;left:38%;animation-delay:2s;font-size:1.4rem}
+.fi6{bottom:15%;left:45%;animation-delay:4s;font-size:1.6rem}
+@keyframes floatRandom{
+  0%,100%{transform:translateY(0) rotate(0deg)}
+  33%{transform:translateY(-18px) rotate(8deg)}
+  66%{transform:translateY(10px) rotate(-5deg)}
+}
+
+/* STATS STRIP */
+.stats-strip{
+  background:var(--dark);
+  padding:1.5rem 2.5rem;
+  display:flex;align-items:center;justify-content:center;gap:4rem;
+  flex-wrap:wrap;
+}
+.stat-item{text-align:center;color:#fff}
+.stat-num{
+  font-family:'Fredoka One',cursive;
+  font-size:2rem;color:var(--yellow);
+  display:block;
+}
+.stat-label{font-size:0.82rem;opacity:0.7;font-weight:600}
+
+/* SECTION */
+section{padding:5rem 2.5rem}
+.section-eyebrow{
+  display:inline-flex;align-items:center;gap:0.5rem;
+  font-size:0.8rem;font-weight:800;letter-spacing:2px;
+  text-transform:uppercase;color:var(--pink);
+  margin-bottom:0.8rem;
+}
+.section-eyebrow::before{content:'';width:20px;height:2px;background:var(--pink)}
+.section-title{
+  font-family:'Fredoka One',cursive;
+  font-size:clamp(2rem,4vw,3rem);
+  line-height:1.15;color:var(--dark);
+  margin-bottom:0.5rem;
+}
+.section-sub{color:#6B5B73;font-size:1rem;font-weight:600;max-width:500px}
+
+/* MENU */
+.menu-section{background:#fff}
+.menu-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
+  gap:1.5rem;margin-top:3rem;
+}
+.menu-card{
+  background:var(--card1);
+  border-radius:24px;
+  padding:1.5rem;
+  position:relative;overflow:hidden;
+  transition:transform 0.3s cubic-bezier(0.34,1.56,0.64,1),box-shadow 0.3s;
+  cursor:none;
+}
+.menu-card:nth-child(2){background:var(--card2)}
+.menu-card:nth-child(3){background:var(--card3)}
+.menu-card:nth-child(4){background:var(--card4)}
+.menu-card:nth-child(5){background:#F0E8FF}
+.menu-card:nth-child(6){background:#FFE8E0}
+.menu-card:hover{
+  transform:translateY(-10px) rotate(1deg);
+  box-shadow:0 20px 50px rgba(0,0,0,0.12);
+}
+.menu-card-emoji{font-size:3.5rem;display:block;margin-bottom:1rem;animation:emojiBounce 3s ease-in-out infinite}
+@keyframes emojiBounce{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
+.menu-card h3{font-family:'Fredoka One',cursive;font-size:1.3rem;color:var(--dark);margin-bottom:0.3rem}
+.menu-card p{font-size:0.85rem;color:#6B5B73;font-weight:600;line-height:1.5;margin-bottom:1rem}
+.menu-card-price{
+  font-family:'Fredoka One',cursive;
+  font-size:1.4rem;color:var(--pink);
+}
+.menu-card-tag{
+  position:absolute;top:1rem;right:1rem;
+  background:var(--pink);color:#fff;
+  font-size:0.7rem;font-weight:800;
+  padding:0.2rem 0.6rem;border-radius:50px;
+}
+.menu-card-tag.new{background:var(--purple)}
+.menu-card-tag.bestseller{background:var(--orange)}
+
+/* ABOUT / VIBE */
+.vibe-section{
+  background:linear-gradient(135deg,var(--dark) 0%,#2D1B69 100%);
+  position:relative;overflow:hidden;
+}
+.vibe-section::before{
+  content:'';
+  position:absolute;inset:0;
+  background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Ccircle cx='30' cy='30' r='4'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+.vibe-inner{
+  position:relative;z-index:1;
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:4rem;align-items:center;
+  max-width:1100px;margin:0 auto;
+}
+.vibe-section .section-eyebrow{color:var(--yellow)}
+.vibe-section .section-title{color:#fff}
+.vibe-section .section-sub{color:rgba(255,255,255,0.65)}
+.vibe-features{list-style:none;margin-top:2rem;display:flex;flex-direction:column;gap:1rem}
+.vibe-features li{
+  display:flex;align-items:center;gap:1rem;
+  color:rgba(255,255,255,0.85);font-weight:700;
+  font-size:0.95rem;
+}
+.vibe-features li span.icon{
+  width:40px;height:40px;
+  background:rgba(255,255,255,0.08);
+  border-radius:12px;display:flex;align-items:center;justify-content:center;
+  font-size:1.3rem;flex-shrink:0;
+}
+
+.vibe-cards{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.vibe-card{
+  border-radius:20px;
+  padding:1.5rem;
+  position:relative;overflow:hidden;
+}
+.vc1{background:rgba(255,79,154,0.2);border:1px solid rgba(255,79,154,0.3)}
+.vc2{background:rgba(168,85,247,0.2);border:1px solid rgba(168,85,247,0.3)}
+.vc3{background:rgba(255,214,0,0.15);border:1px solid rgba(255,214,0,0.25);grid-column:span 2}
+.vibe-card .vc-emoji{font-size:2rem;margin-bottom:0.5rem;display:block}
+.vibe-card h4{font-family:'Fredoka One',cursive;color:#fff;font-size:1.1rem;margin-bottom:0.3rem}
+.vibe-card p{color:rgba(255,255,255,0.65);font-size:0.82rem;font-weight:600;line-height:1.5}
+
+/* TESTIMONIALS */
+.testi-section{background:var(--cream);overflow:hidden}
+.testi-track{
+  display:flex;gap:1.5rem;
+  margin-top:2.5rem;
+  animation:scrollTrack 25s linear infinite;
+  width:max-content;
+}
+.testi-track:hover{animation-play-state:paused}
+@keyframes scrollTrack{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.testi-card{
+  background:#fff;
+  border-radius:20px;
+  padding:1.5rem;
+  width:280px;flex-shrink:0;
+  box-shadow:0 4px 20px rgba(0,0,0,0.06);
+  border:1px solid rgba(255,79,154,0.08);
+}
+.testi-stars{color:var(--yellow);font-size:1rem;margin-bottom:0.7rem}
+.testi-text{font-size:0.88rem;color:#4A3D5A;font-weight:600;line-height:1.6;margin-bottom:1rem}
+.testi-author{display:flex;align-items:center;gap:0.7rem}
+.testi-avatar{
+  width:36px;height:36px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.2rem;font-weight:800;
+  background:var(--card1);
+  font-size:1.1rem;
+}
+.testi-name{font-weight:800;font-size:0.85rem;color:var(--dark)}
+.testi-loc{font-size:0.75rem;color:#8B7A9A;font-weight:600}
+
+/* LOCATION */
+.location-section{background:#fff}
+.location-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:2rem;margin-top:3rem;align-items:start;
+}
+.location-card{
+  background:linear-gradient(135deg,var(--dark),#2D1B69);
+  border-radius:24px;padding:2rem;color:#fff;
+  position:relative;overflow:hidden;
+}
+.location-card::after{
+  content:'📍';font-size:8rem;
+  position:absolute;right:-1rem;bottom:-1rem;
+  opacity:0.08;
+}
+.location-card h3{font-family:'Fredoka One',cursive;font-size:1.5rem;margin-bottom:1.2rem}
+.location-info{display:flex;flex-direction:column;gap:0.8rem}
+.location-row{display:flex;align-items:flex-start;gap:0.8rem;font-size:0.9rem;font-weight:600;color:rgba(255,255,255,0.85)}
+.location-row .icon{font-size:1.1rem;flex-shrink:0;margin-top:0.05rem}
+.map-placeholder{
+  background:linear-gradient(135deg,#E8F4FD,#F0E8FF);
+  border-radius:24px;
+  height:100%;min-height:280px;
+  display:flex;align-items:center;justify-content:center;
+  flex-direction:column;gap:1rem;
+  border:2px dashed rgba(168,85,247,0.3);
+}
+.map-placeholder .map-emoji{font-size:4rem;animation:mapBounce 2s ease-in-out infinite}
+@keyframes mapBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.map-placeholder p{font-family:'Fredoka One',cursive;color:var(--purple);font-size:1.1rem}
+
+/* FOOTER */
+footer{
+  background:var(--dark);
+  padding:3rem 2.5rem;
+  text-align:center;
+}
+.footer-logo{
+  font-family:'Fredoka One',cursive;
+  font-size:2rem;color:var(--pink);
+  margin-bottom:1rem;display:block;
+}
+.footer-social{display:flex;justify-content:center;gap:1rem;margin:1.5rem 0}
+.social-btn{
+  width:42px;height:42px;
+  border-radius:50%;
+  background:rgba(255,255,255,0.08);
+  border:1px solid rgba(255,255,255,0.12);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.2rem;cursor:none;
+  transition:all 0.2s;
+  text-decoration:none;
+}
+.social-btn:hover{background:var(--pink);border-color:var(--pink);transform:translateY(-3px)}
+.footer-copy{font-size:0.82rem;color:rgba(255,255,255,0.35);font-weight:600}
+
+/* SCROLL REVEAL */
+.reveal{opacity:0;transform:translateY(50px);transition:all 0.8s cubic-bezier(0.34,1.56,0.64,1)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+/* SCROLL TOP BTN */
+#scrollTop{
+  position:fixed;bottom:2rem;right:2rem;
+  width:48px;height:48px;
+  background:var(--pink);color:#fff;
+  border:none;border-radius:50%;
+  font-size:1.4rem;cursor:none;
+  box-shadow:0 4px 20px rgba(255,79,154,0.4);
+  transition:all 0.3s;z-index:50;
+  opacity:0;transform:scale(0);
+  display:flex;align-items:center;justify-content:center;
+}
+#scrollTop.visible{opacity:1;transform:scale(1)}
+#scrollTop:hover{transform:scale(1.1)}
+
+/* SPRINKLES CANVAS */
+#sprinkles{position:fixed;inset:0;pointer-events:none;z-index:0;opacity:0.4}
+
+/* MOBILE */
+@media(max-width:768px){
+  .hero-illustration{display:none}
+  nav{padding:1rem 1.2rem}
+  .nav-links{display:none}
+  section{padding:3.5rem 1.2rem}
+  .stats-strip{gap:2rem;padding:1.5rem 1.2rem}
+  .vibe-inner{grid-template-columns:1fr}
+  .location-grid{grid-template-columns:1fr}
+  .menu-grid{grid-template-columns:repeat(auto-fill,minmax(200px,1fr))}
+  .hero h1{font-size:2.8rem}
+}
+</style>
+</head>
+<body>
+
+<canvas id="sprinkles"></canvas>
+<div id="cursor"></div>
+<div id="cursor-trail"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">🥤 Shake <span>Heaven</span></div>
+  <ul class="nav-links">
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#vibe">Our Vibe</a></li>
+    <li><a href="#reviews">Reviews</a></li>
+    <li><a href="#location">Visit Us</a></li>
+  </ul>
+  <button class="nav-cta">Order Now ✨</button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg-blob blob1"></div>
+  <div class="hero-bg-blob blob2"></div>
+  <div class="hero-bg-blob blob3"></div>
+
+  <div class="float-item fi1">🍓</div>
+  <div class="float-item fi2">💜</div>
+  <div class="float-item fi3">⭐</div>
+  <div class="float-item fi4">🍪</div>
+  <div class="float-item fi5">✨</div>
+  <div class="float-item fi6">🎉</div>
+
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span class="dot"></span>
+      Now serving in Rajkot
+    </div>
+    <h1>
+      Life's Better<br>
+      with a <span class="highlight">Shake</span><br>
+      in Hand <span class="wave">🤤</span>
+    </h1>
+    <p class="hero-sub">
+      Thick, dreamy, utterly indulgent milkshakes<br>
+      crafted for those who refuse to settle for ordinary.
+    </p>
+    <div class="hero-actions">
+      <button class="btn-primary">Explore Menu 🥤</button>
+      <button class="btn-secondary">Our Story →</button>
+    </div>
+  </div>
+
+  <div class="hero-illustration">
+    <svg class="big-cup" viewBox="0 0 280 380" xmlns="http://www.w3.org/2000/svg">
+      <!-- Whipped cream top -->
+      <ellipse cx="140" cy="55" rx="90" ry="25" fill="#FFF0FA" opacity="0.9"/>
+      <ellipse cx="140" cy="48" rx="70" ry="22" fill="white"/>
+      <!-- Cream swirl -->
+      <path d="M100,48 Q120,25 140,40 Q160,55 180,35 Q190,22 155,15 Q140,8 125,15 Q100,25 100,48Z" fill="white"/>
+      <circle cx="140" cy="18" r="8" fill="#FFD600"/>
+      <!-- Cherry -->
+      <circle cx="140" cy="10" r="8" fill="#FF4F9A"/>
+      <path d="M140,2 Q155,-10 165,-5" stroke="#2D7D32" stroke-width="2" fill="none"/>
+      <!-- Cup body -->
+      <path d="M55,75 L80,310 Q82,330 105,335 L175,335 Q198,330 200,310 L225,75 Z" fill="url(#cupGrad)"/>
+      <defs>
+        <linearGradient id="cupGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" style="stop-color:#FF4F9A;stop-opacity:1"/>
+          <stop offset="50%" style="stop-color:#C84BBE;stop-opacity:1"/>
+          <stop offset="100%" style="stop-color:#A855F7;stop-opacity:1"/>
+        </linearGradient>
+      </defs>
+      <!-- Cup shine -->
+      <path d="M75,90 L85,290 Q86,308 95,312" stroke="rgba(255,255,255,0.3)" stroke-width="8" fill="none" stroke-linecap="round"/>
+      <!-- Cup rim -->
+      <rect x="48" y="70" width="184" height="18" rx="9" fill="#FF4F9A"/>
+      <!-- Straw -->
+      <rect x="148" y="-15" width="12" height="85" rx="6" fill="url(#strawGrad)"/>
+      <defs>
+        <linearGradient id="strawGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" style="stop-color:#FF4F9A"/>
+          <stop offset="50%" style="stop-color:#FFD600"/>
+          <stop offset="100%" style="stop-color:#A855F7"/>
+        </linearGradient>
+      </defs>
+      <!-- Logo text on cup -->
+      <text x="140" y="200" text-anchor="middle" fill="rgba(255,255,255,0.9)" font-family="Fredoka One, cursive" font-size="22">Shake</text>
+      <text x="140" y="228" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-family="Fredoka One, cursive" font-size="18">Heaven</text>
+      <!-- Sprinkle dots on cup -->
+      <circle cx="90" cy="140" r="4" fill="#FFD600" opacity="0.8"/>
+      <circle cx="185" cy="165" r="3" fill="white" opacity="0.7"/>
+      <circle cx="105" cy="190" r="5" fill="#FFD600" opacity="0.8"/>
+      <circle cx="175" cy="125" r="4" fill="white" opacity="0.6"/>
+    </svg>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-strip">
+  <div class="stat-item reveal">
+    <span class="stat-num">50+</span>
+    <span class="stat-label">Shake Varieties</span>
+  </div>
+  <div class="stat-item reveal">
+    <span class="stat-num">1000+</span>
+    <span class="stat-label">Happy Customers</span>
+  </div>
+  <div class="stat-item reveal">
+    <span class="stat-num">4.9★</span>
+    <span class="stat-label">Avg. Rating</span>
+  </div>
+  <div class="stat-item reveal">
+    <span class="stat-num">100%</span>
+    <span class="stat-label">Pure Happiness</span>
+  </div>
+</div>
+
+<!-- MENU -->
+<section class="menu-section" id="menu">
+  <div class="section-eyebrow">Our Menu</div>
+  <h2 class="section-title">Pick Your <span style="color:var(--pink)">Heaven</span> 🌈</h2>
+  <p class="section-sub">Thick, cold, and bursting with flavor — every sip feels like a reward.</p>
+
+  <div class="menu-grid">
+    <div class="menu-card reveal">
+      <span class="menu-card-tag bestseller">Bestseller</span>
+      <span class="menu-card-emoji">🍓</span>
+      <h3>Strawberry Dream</h3>
+      <p>Fresh strawberries blended with creamy vanilla ice cream — sweet, tangy, divine.</p>
+      <div class="menu-card-price">₹89</div>
+    </div>
+    <div class="menu-card reveal">
+      <span class="menu-card-tag new">New</span>
+      <span class="menu-card-emoji">🍫</span>
+      <h3>Dark Choco Bliss</h3>
+      <p>Rich Belgian chocolate with a hint of sea salt. Absolute indulgence in a cup.</p>
+      <div class="menu-card-price">₹99</div>
+    </div>
+    <div class="menu-card reveal">
+      <span class="menu-card-emoji">🥭</span>
+      <h3>Mango Madness</h3>
+      <p>Alphonso mango purée whipped into a thick, tropical paradise. Summer in a cup.</p>
+      <div class="menu-card-price">₹79</div>
+    </div>
+    <div class="menu-card reveal">
+      <span class="menu-card-emoji">🫐</span>
+      <h3>Blueberry Bliss</h3>
+      <p>Wild blueberries with cheesecake bits. Taste the purple dreams come alive.</p>
+      <div class="menu-card-price">₹99</div>
+    </div>
+    <div class="menu-card reveal">
+      <span class="menu-card-tag new">New</span>
+      <span class="menu-card-emoji">🍪</span>
+      <h3>Cookie Monster</h3>
+      <p>Oreo + vanilla + cookie chunks + whipped cream. Impossible to stop at one sip.</p>
+      <div class="menu-card-price">₹109</div>
+    </div>
+    <div class="menu-card reveal">
+      <span class="menu-card-emoji">☕</span>
+      <h3>Cold Coffee Supreme</h3>
+      <p>Double shot espresso meets vanilla ice cream. Caffeine never tasted this heavenly.</p>
+      <div class="menu-card-price">₹89</div>
+    </div>
+  </div>
+</section>
+
+<!-- VIBE -->
+<section class="vibe-section" id="vibe">
+  <div class="vibe-inner">
+    <div>
+      <div class="section-eyebrow">Why Us</div>
+      <h2 class="section-title">The Shake Heaven<br>Experience ✨</h2>
+      <p class="section-sub">More than a milkshake — it's the vibe, the taste, the memory.</p>
+      <ul class="vibe-features">
+        <li><span class="icon">🥛</span>Premium quality ingredients, no shortcuts</li>
+        <li><span class="icon">❄️</span>Fresh ice cream, never frozen powders</li>
+        <li><span class="icon">🎨</span>Instagrammable presentation every time</li>
+        <li><span class="icon">⚡</span>Ready in 3 minutes, flavor for hours</li>
+        <li><span class="icon">💰</span>Rajkot's best value — quality you can feel</li>
+      </ul>
+    </div>
+    <div class="vibe-cards">
+      <div class="vibe-card vc1 reveal">
+        <span class="vc-emoji">🍓</span>
+        <h4>Fresh Fruits</h4>
+        <p>Real fruits, real flavor. Not syrups.</p>
+      </div>
+      <div class="vibe-card vc2 reveal">
+        <span class="vc-emoji">🧁</span>
+        <h4>Premium Toppings</h4>
+        <p>Loaded with love & extra sprinkles.</p>
+      </div>
+      <div class="vibe-card vc3 reveal">
+        <span class="vc-emoji">🎉</span>
+        <h4>Every Day is a Celebration</h4>
+        <p>Whether it's a date, a birthday, or just a Tuesday — we've got the perfect shake for you. Come in, treat yourself, you deserve it.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testi-section" id="reviews">
+  <div style="text-align:center">
+    <div class="section-eyebrow" style="justify-content:center">Reviews</div>
+    <h2 class="section-title">Rajkot is <span style="color:var(--pink)">Obsessed</span> 😍</h2>
+  </div>
+
+  <div style="overflow:hidden;margin:0 -2.5rem">
+    <div class="testi-track">
+      <!-- Set 1 -->
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"The Strawberry Dream is literally the best milkshake I've had in Rajkot. Thick, fresh, and absolutely gorgeous to look at!"</p>
+        <div class="testi-author">
+          <div class="testi-avatar">👩</div>
+          <div><div class="testi-name">Priya Shah</div><div class="testi-loc">Rajkot</div></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"Cookie Monster shake is dangerously good. I come here 3 times a week now. No regrets whatsoever 😂"</p>
+        <div class="testi-author">
+          <div class="testi-avatar">🧑</div>
+          <div><div class="testi-name">Karan Patel</div><div class="testi-loc">Rajkot</div></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"The vibe of this place is so cute and the shakes are HUGE. Perfect hangout spot with friends!"</p>
+        <div class="testi-author">
+          <div class="testi-avatar">👩‍🦱</div>
+          <div><div class="testi-name">Neha Joshi</div><div class="testi-loc">Rajkot</div></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"Dark Choco Bliss with sea salt hits different. Never thought I'd fall in love with a milkshake this hard."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">👦</div>
+          <div><div class="testi-name">Ravi Mehta</div><div class="testi-loc">Rajkot</div></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"Best bang for your buck in Rajkot! ₹89 for that quality? Unbelievable. Coming back forever!"</p>
+        <div class="testi-author">
+          <div class="testi-avatar">🧔</div>
+          <div><div class="testi-name">Dhruv Trivedi</div><div class="testi-loc">Rajkot</div></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"My kids beg me to come here every weekend. The Mango Madness is their go-to. Pure tropical heaven!"</p>
+        <div class="testi-author">
+          <div class="testi-avatar">👩</div>
+          <div><div class="testi-name">Meera Doshi</div><div class="testi-loc">Rajkot</div></div>
+        </div>
+      </div>
+      <!-- Duplicate for infinite scroll -->
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"The Strawberry Dream is literally the best milkshake I've had in Rajkot. Thick, fresh, and absolutely gorgeous to look at!"</p>
+        <div class="testi-author">
+          <div class="testi-avatar">👩</div>
+          <div><div class="testi-name">Priya Shah</div><div class="testi-loc">Rajkot</div></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"Cookie Monster shake is dangerously good. I come here 3 times a week now. No regrets whatsoever 😂"</p>
+        <div class="testi-author">
+          <div class="testi-avatar">🧑</div>
+          <div><div class="testi-name">Karan Patel</div><div class="testi-loc">Rajkot</div></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"The vibe of this place is so cute and the shakes are HUGE. Perfect hangout spot with friends!"</p>
+        <div class="testi-author">
+          <div class="testi-avatar">👩‍🦱</div>
+          <div><div class="testi-name">Neha Joshi</div><div class="testi-loc">Rajkot</div></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"Dark Choco Bliss with sea salt hits different. Never thought I'd fall in love with a milkshake this hard."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">👦</div>
+          <div><div class="testi-name">Ravi Mehta</div><div class="testi-loc">Rajkot</div></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"Best bang for your buck in Rajkot! ₹89 for that quality? Unbelievable. Coming back forever!"</p>
+        <div class="testi-author">
+          <div class="testi-avatar">🧔</div>
+          <div><div class="testi-name">Dhruv Trivedi</div><div class="testi-loc">Rajkot</div></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"My kids beg me to come here every weekend. The Mango Madness is their go-to. Pure tropical heaven!"</p>
+        <div class="testi-author">
+          <div class="testi-avatar">👩</div>
+          <div><div class="testi-name">Meera Doshi</div><div class="testi-loc">Rajkot</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LOCATION -->
+<section class="location-section" id="location">
+  <div class="section-eyebrow">Find Us</div>
+  <h2 class="section-title">Come Visit <span style="color:var(--pink)">Heaven</span> 📍</h2>
+
+  <div class="location-grid">
+    <div class="location-card reveal">
+      <h3>🏠 Shake Heaven, Rajkot</h3>
+      <div class="location-info">
+        <div class="location-row">
+          <span class="icon">📍</span>
+          <span>Rajkot, Gujarat, India<br><small style="opacity:0.6">(Check Instagram for exact address)</small></span>
+        </div>
+        <div class="location-row">
+          <span class="icon">🕐</span>
+          <span>Mon–Sun: 12:00 PM – 11:00 PM</span>
+        </div>
+        <div class="location-row">
+          <span class="icon">📱</span>
+          <span>@shakeheavenrkt on Instagram</span>
+        </div>
+        <div class="location-row">
+          <span class="icon">🚗</span>
+          <span>Ample parking available nearby</span>
+        </div>
+      </div>
+      <button class="btn-primary" style="margin-top:1.5rem;cursor:none">
+        Get Directions 🗺️
+      </button>
+    </div>
+    <div class="map-placeholder reveal">
+      <div class="map-emoji">🗺️</div>
+      <p>Rajkot, Gujarat</p>
+      <p style="font-size:0.8rem;color:#8B7A9A;font-weight:600;font-family:Nunito,sans-serif">Your shake is waiting nearby!</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-logo">🥤 Shake Heaven</span>
+  <p style="color:rgba(255,255,255,0.5);font-size:0.9rem;font-weight:600">Rajkot's Sweetest Escape</p>
+  <div class="footer-social">
+    <a class="social-btn" href="https://www.instagram.com/shakeheavenrkt/" target="_blank">📸</a>
+    <a class="social-btn" href="#">🗺️</a>
+    <a class="social-btn" href="#">📱</a>
+  </div>
+  <p class="footer-copy">© 2024 Shake Heaven, Rajkot. All rights reserved. Made with 🩷</p>
+</footer>
+
+<button id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+// Custom cursor
+const cursor = document.getElementById('cursor');
+const trail = document.getElementById('cursor-trail');
+let mx=0,my=0,tx=0,ty=0;
+document.addEventListener('mousemove',e=>{
+  mx=e.clientX;my=e.clientY;
+  cursor.style.left=(mx-10)+'px';
+  cursor.style.top=(my-10)+'px';
+});
+setInterval(()=>{
+  tx+=(mx-tx)*0.1;ty+=(my-ty)*0.1;
+  trail.style.left=(tx-20)+'px';
+  trail.style.top=(ty-20)+'px';
+},16);
+document.querySelectorAll('button,a,.menu-card').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{
+    cursor.style.transform='scale(2)';
+    cursor.style.background='var(--yellow)';
+  });
+  el.addEventListener('mouseleave',()=>{
+    cursor.style.transform='scale(1)';
+    cursor.style.background='var(--pink)';
+  });
+});
+
+// Scroll reveal
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver(entries=>{
+  entries.forEach((entry,i)=>{
+    if(entry.isIntersecting){
+      setTimeout(()=>{entry.target.classList.add('visible')},i*80);
+    }
+  });
+},{threshold:0.15});
+reveals.forEach(r=>observer.observe(r));
+
+// Scroll top button
+const scrollBtn=document.getElementById('scrollTop');
+window.addEventListener('scroll',()=>{
+  if(window.scrollY>400){scrollBtn.classList.add('visible')}
+  else{scrollBtn.classList.remove('visible')}
+});
+
+// Sprinkles canvas
+const canvas=document.getElementById('sprinkles');
+const ctx=canvas.getContext('2d');
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+window.addEventListener('resize',()=>{canvas.width=window.innerWidth;canvas.height=window.innerHeight;initSprinkles()});
+
+const colors=['#FF4F9A','#FFD600','#A855F7','#00C9A7','#FF6B2B'];
+const sprinkles=[];
+function initSprinkles(){
+  sprinkles.length=0;
+  for(let i=0;i<60;i++){
+    sprinkles.push({
+      x:Math.random()*canvas.width,
+      y:Math.random()*canvas.height,
+      r:Math.random()*3+1,
+      color:colors[Math.floor(Math.random()*colors.length)],
+      vx:(Math.random()-0.5)*0.3,
+      vy:(Math.random()-0.5)*0.3,
+      opacity:Math.random()*0.5+0.2,
+    });
+  }
+}
+initSprinkles();
+function animSprinkles(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  sprinkles.forEach(s=>{
+    ctx.beginPath();
+    ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+    ctx.fillStyle=s.color;
+    ctx.globalAlpha=s.opacity;
+    ctx.fill();
+    s.x+=s.vx;s.y+=s.vy;
+    if(s.x<0)s.x=canvas.width;
+    if(s.x>canvas.width)s.x=0;
+    if(s.y<0)s.y=canvas.height;
+    if(s.y>canvas.height)s.y=0;
+  });
+  ctx.globalAlpha=1;
+  requestAnimationFrame(animSprinkles);
+}
+animSprinkles();
+
+// Mouse parallax for hero illustration
+document.addEventListener('mousemove',e=>{
+  const mx=(e.clientX/window.innerWidth-0.5)*20;
+  const my=(e.clientY/window.innerHeight-0.5)*20;
+  const ill=document.querySelector('.hero-illustration');
+  if(ill) ill.style.transform=`translateY(-50%) translate(${mx*0.3}px,${my*0.3}px)`;
+  document.querySelectorAll('.float-item').forEach((fi,i)=>{
+    const d=(i+1)*0.15;
+    fi.style.transform=`translate(${mx*d}px,${my*d}px)`;
+  });
+});
+</script>
+</body>
+</html>
