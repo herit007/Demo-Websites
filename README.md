@@ -26,4 +26,4 @@ To experiment, learn, and build engaging web experiences while improving fronten
 
 **Herit Tanna**
 
-Web Development | AI/ML | Data Science
+Web Development (Vibe Coded) | AI/ML | Data Science
